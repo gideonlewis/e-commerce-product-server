@@ -1,0 +1,11 @@
+development:
+  dialect: postgres
+  datasource: user=root password=my-secret-pw host=127.0.0.1 port=54321 dbname=productdb sslmode=disable
+  dir: internal/migrations
+  table: gorp_migrations
+
+test:
+  dialect: postgres
+  datasource: user=root password=my-secret-pw host=127.0.0.1 port=54321 dbname=productdb_test sslmode=disable
+  dir: internal/migrations
+  table: gorp_migrations
