@@ -5,10 +5,10 @@ import (
 )
 
 type ProductService struct {
-	repo ports.ProductService
+	repo ports.ProductRepository
 }
 
-func NewProductService(repo ports.ProductService) *ProductService {
+func NewProductService(repo ports.ProductRepository) *ProductService {
 	return &ProductService{
 		repo: repo,
 	}

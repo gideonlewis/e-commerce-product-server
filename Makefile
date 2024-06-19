@@ -19,6 +19,10 @@ lint:
 db/migrate:
 	go run ./cmd/migrate
 
+init/db:
+	chmod +x initdb.sh
+	./initdb.sh
+
 unit-test:
 	@mkdir coverage || true
 	-go test -p 1 -race -v -coverpkg=./... -coverprofile=coverage/coverage.txt.tmp -count=1  ./...

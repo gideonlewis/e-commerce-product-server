@@ -1,0 +1,20 @@
+app:
+  name: "product-service"
+  version: "1.0.0"
+server:
+  port: 8081
+  host: "localhost"
+api:
+  jwtsecret: "jwtsecret"
+  apikey: "apikey"
+  stripekey: "stripekey"
+postgres:
+  name: "productdb"
+  host: "127.0.0.1"
+  port: 54322
+  user: "root"
+  pass: "my-secret-pw"
+  enablesll: true
+redis:
+  address: "localhost:63792"
+  password: 

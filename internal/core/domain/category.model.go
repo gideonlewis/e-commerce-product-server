@@ -1,8 +1,10 @@
 package domain
 
 type Category struct {
-	CategoryID   int       `json:"category_id" gorm:"primary_key;auto_increment"`
-	CategoryName string    `json:"category_name" gorm:"type:varchar(255);not null"`
-	ParentID     int       `json:"parent_id" gorm:"index"`
-	Parent       *Category `json:"parent,omitempty" gorm:"foreignKey:ParentID;references:CategoryID"`
+	DefaultModel
+	ID       int       `gorm:"column:category_id"`
+	Name     string    `gorm:"column:category_name"`
+	Icon     string    `gorm:"column:category_icon"`
+	ParentID *int      `gorm:"column:parent_id"`
+	Parent   *Category `gorm:"foreignKey:ParentID;references:ID"`
 }

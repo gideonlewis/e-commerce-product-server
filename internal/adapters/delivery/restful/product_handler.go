@@ -1,4 +1,4 @@
-package handler
+package restful
 
 import (
 	"github.com/gideonlewis/e-commerce-product-server/internal/core/services"

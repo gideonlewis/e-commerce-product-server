@@ -1,11 +1,10 @@
-package handler
+package restful
 
 import (
 	"fmt"
 
-	"github.com/gideonlewis/e-commerce-product-server/internal/adapters/middleware"
 	"github.com/gideonlewis/e-commerce-product-server/internal/config"
-	"github.com/gideonlewis/e-commerce-product-server/internal/pkg/datatypes"
+	"github.com/gideonlewis/e-commerce-product-server/pkg/datatypes"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 )
@@ -14,12 +13,16 @@ type APIHandler struct {
 	router *gin.Engine
 
 	// Handler
+	csrv *CategoryHandler
 	psrv *ProductHandler
 }
 
 func NewAPIHandler(
-	producthandler *ProductHandler) *APIHandler {
+	categoryHandler *CategoryHandler,
+	producthandler *ProductHandler,
+) *APIHandler {
 	return &APIHandler{
+		csrv: categoryHandler,
 		psrv: producthandler,
 	}
 }
@@ -64,14 +67,21 @@ func (h *APIHandler) registerRouter() {
 	api := h.router.Group("/api")
 
 	v1 := api.Group("/v1")
-	v1.Use(middleware.TokenAuthMiddleware(config.Api.JWTSecret))
+	// v1.Use(middleware.TokenAuthMiddleware(config.Api.JWTSecret))
 
-	h.registerProductRoutes(v1)
+	h.registerCategorysRoutes(v1)
+	// h.registerProductRoutes(v1)
 }
 
 func (h *APIHandler) registerGlobalMiddleware() {
 	h.router.Use(gin.Recovery())
 	h.router.Use(gin.Logger())
+}
+
+func (h *APIHandler) registerCategorysRoutes(group *gin.RouterGroup) {
+	category := group.Group("/categories")
+	category.POST("", h.csrv.Create())
+	category.GET("", h.csrv.GetList())
 }
 
 func (h *APIHandler) registerProductRoutes(group *gin.RouterGroup) {

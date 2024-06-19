@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	pkgredis "github.com/gideonlewis/e-commerce-product-server/internal/pkg/redis"
+	pkgredis "github.com/gideonlewis/e-commerce-product-server/pkg/redis"
 	"github.com/go-redis/redis/v8"
 )
 

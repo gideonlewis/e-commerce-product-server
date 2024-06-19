@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/gideonlewis/e-commerce-product-server/internal/config"
-	applogger "github.com/gideonlewis/e-commerce-product-server/internal/pkg/logger"
-	"github.com/gideonlewis/e-commerce-product-server/internal/pkg/postgres"
+	applogger "github.com/gideonlewis/e-commerce-product-server/pkg/logger"
+	"github.com/gideonlewis/e-commerce-product-server/pkg/postgres"
 	migrate "github.com/rubenv/sql-migrate"
 )
 
