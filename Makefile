@@ -1,5 +1,8 @@
 .PHONY: run test local-db lint db/migrate
 
+cms:
+	go run cmd/cms/main.go
+
 run:
 	air -c .air.toml
 

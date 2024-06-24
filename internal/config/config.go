@@ -57,8 +57,10 @@ type APIConfig struct {
 }
 
 type ServerConfig struct {
-	Port int
-	Host string
+	Port    int
+	Host    string
+	CmsPort int
+	CmsHost string
 }
 
 type SmtpConfig struct {

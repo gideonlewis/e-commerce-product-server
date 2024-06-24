@@ -1,22 +1,19 @@
 package domain
 
-import "time"
-
 type Product struct {
-	ID          int       `gorm:"primary_key;auto_increment"`
-	CategoryID  int       `gorm:"not null"`
-	ProductName string    `gorm:"type:varchar(255);not null"`
-	Description string    `gorm:"type:text"`
-	Price       float64   `gorm:"type:decimal(10,2);not null"`
-	CreatedAt   time.Time `gorm:"type:timestamp;default:current_timestamp"`
+	DefaultModel
+	ID          int    `gorm:"column:product_id"`
+	Name        string `gorm:"column:product_name"`
+	Description string `gorm:"column:description"`
+	CategoryID  int64  `gorm:"column:category_id"`
 }
 
 type Variant struct {
-	ID           int     `gorm:"primary_key;auto_increment"`
-	ProductID    int     `gorm:"not null"`
-	VariantName  string  `gorm:"type:varchar(255)"`
-	VariantValue string  `gorm:"type:varchar(255)"`
-	Product      Product `gorm:"foreignKey:ProductID;references:ProductID"`
+	ID           int     `gorm:""`
+	ProductID    int     `gorm:""`
+	VariantName  string  `gorm:""`
+	VariantValue string  `gorm:""`
+	Product      Product `gorm:""`
 }
 
 type ProductImage struct {

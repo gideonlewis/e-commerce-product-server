@@ -5,10 +5,10 @@ import (
 )
 
 type ProductHandler struct {
-	svc services.ProductService
+	svc *services.ProductService
 }
 
-func NewProductHandler(productService services.ProductService) *ProductHandler {
+func NewProductHandler(productService *services.ProductService) *ProductHandler {
 	return &ProductHandler{
 		svc: productService,
 	}

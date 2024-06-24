@@ -4,6 +4,8 @@ app:
 server:
   port: 8081
   host: "localhost"
+  cmsport: 8082
+  cmshost: "localhost"
 api:
   jwtsecret: "jwtsecret"
   apikey: "apikey"

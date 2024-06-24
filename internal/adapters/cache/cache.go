@@ -51,6 +51,19 @@ func (c *Cache) Set(key string, value interface{}, duration time.Duration) error
 	return nil
 }
 
+func (c *Cache) HSet(key string, value interface{}, duration time.Duration) error {
+	data, err := json.Marshal(value)
+	if err != nil {
+		return fmt.Errorf("failed to marshal cache value for key %q: %v", key, err)
+	}
+
+	if err := c.client.HSet(context.Background(), key, data).Err(); err != nil {
+		return fmt.Errorf("failed to set value for key %q: %v", key, err)
+	}
+
+	return nil
+}
+
 func (c *Cache) Delete(key string) error {
 	if err := c.client.Del(context.Background(), key).Err(); err != nil {
 		return fmt.Errorf("failed to delete value for key %q: %v", key, err)

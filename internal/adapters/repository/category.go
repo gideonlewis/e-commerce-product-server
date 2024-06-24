@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gideonlewis/e-commerce-product-server/internal/core/domain"
+	"github.com/gideonlewis/e-commerce-product-server/pkg/datatypes"
 )
 
 func (c *DB) CreateCategory(data *domain.Category) error {
@@ -19,12 +20,45 @@ func (c *DB) CreateCategory(data *domain.Category) error {
 	return nil
 }
 
-func (c *DB) GetListCategory() ([]*domain.Category, error) {
-	var data []*domain.Category
-	req := c.db.Find(&data)
-	if req.Error != nil {
-		return nil, req.Error
+func (c *DB) GetListCategory(
+	paginator datatypes.Paginator,
+	conditions interface{},
+	order []string,
+) ([]*domain.Category, int64, error) {
+	var (
+		db     = c.db.Model(&domain.Category{})
+		data   = make([]*domain.Category, 0)
+		total  int64
+		offset int
+	)
+
+	if conditions != nil {
+		db = db.Where(conditions)
 	}
 
-	return data, nil
+	for i := range order {
+		db = db.Order(order[i])
+	}
+
+	if paginator.Page != 1 {
+		offset = paginator.Limit * (paginator.Page - 1)
+	}
+
+	if paginator.Limit != -1 {
+		err := db.Count(&total).Error
+		if err != nil {
+			return nil, 0, err
+		}
+	}
+
+	err := db.Limit(paginator.Limit).Offset(offset).Find(&data).Error
+	if err != nil {
+		return nil, 0, err
+	}
+
+	if paginator.Limit == -1 {
+		total = int64(len(data))
+	}
+
+	return data, total, nil
 }

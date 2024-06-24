@@ -45,7 +45,6 @@ func main() {
 	httpServer.Start(
 		config.Server.Port,
 		httpServer.WithSetMode("DEV"),
-		httpServer.RegisterAppRouter(config.Server.Port),
+		httpServer.RegisterCmsRouter(config.Server.CmsPort),
 	)
-
 }
